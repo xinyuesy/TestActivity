@@ -1,6 +1,7 @@
 package com.test.testactivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,13 +18,29 @@ import android.widget.Toast;
 
 import javax.security.auth.login.LoginException;
 
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends BaseActivity {
     private static final String TAG = "FirstActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: taskid: " + getTaskId());
+        //Log.i(TAG, "onCreate: " + this.toString());
+        //Toast.makeText(FirstActivity.this,"onCreate:" + this.toString(),Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_first);
-        Button button = (Button)findViewById(R.id.button);
+        Log.d(TAG, "onCreate: Hello World!");
+        Button button = (Button)findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                startActivity(intent);
+                //Log.i(TAG, "onClick: " + this.toString());
+                //Toast.makeText(FirstActivity.this,"onClick:" + this.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        //setContentView(R.layout.activity_first);
+       // Button button = (Button)findViewById(R.id.button);
         /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,9 +53,14 @@ public class FirstActivity extends AppCompatActivity {
                 finish();
             }
         });*/
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //button.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+        //    public void onClick(View v) {
+        //        String data = "Hello World Activity!";
+         //       Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                //intent.putExtra("extra_data",data);
+                //startActivity(intent);
+                //startActivityForResult(intent,1);
                 /*Intent intent = new Intent("com.test.testactivity.ACTION_START");
                 intent.addCategory("com.test.testactivity.MY_CATEGORY");
                 startActivity(intent);
@@ -77,18 +99,32 @@ public class FirstActivity extends AppCompatActivity {
 
 
 
-                String url="mqqwpa://im/chat?chat_type=wpa&uin=501863587";
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                //String url="mqqwpa://im/chat?chat_type=wpa&uin=501863587";
+                //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 
 
-            }
-        });
+         //   }
+        //});
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode)
+        {
+            case 1:
+                if(resultCode==RESULT_OK)
+                {
+                    String str = data.getStringExtra("data");
+                    Toast.makeText(FirstActivity.this,str,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-
-    /*@Override
+/*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main,menu);
         return true;
