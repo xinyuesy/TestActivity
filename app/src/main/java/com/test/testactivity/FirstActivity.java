@@ -28,6 +28,7 @@ public class FirstActivity extends BaseActivity {
         //Toast.makeText(FirstActivity.this,"onCreate:" + this.toString(),Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_first);
         Log.d(TAG, "onCreate: Hello World!");
+        Log.d(TAG, "onCreate: add a comment!");
         Button button = (Button)findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
